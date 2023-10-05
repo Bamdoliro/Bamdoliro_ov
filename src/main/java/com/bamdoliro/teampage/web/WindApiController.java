@@ -1,12 +1,17 @@
 package com.bamdoliro.teampage.web;
 
+import com.bamdoliro.teampage.domain.wind.Wind;
 import com.bamdoliro.teampage.service.WindService;
+import com.bamdoliro.teampage.web.dto.WindListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -21,5 +26,10 @@ public class WindApiController {
         }
         else
             return ResponseEntity.badRequest().body("35글자수 제한을 넘었습니다.");
+    }
+
+    @GetMapping("/list")
+    public List<WindListResponseDto> list() {
+        return windService.list();
     }
 }

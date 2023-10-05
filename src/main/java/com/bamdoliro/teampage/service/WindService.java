@@ -1,10 +1,14 @@
 package com.bamdoliro.teampage.service;
 
 import com.bamdoliro.teampage.domain.wind.WindRepository;
+import com.bamdoliro.teampage.web.dto.WindListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -14,5 +18,12 @@ public class WindService {
     @Transactional
     public Long save(WindSaveRequestDto windSaveRequestDto) {
         return windRepository.save(windSaveRequestDto.toEntity()).getId();
+    }
+
+    @Transactional(readOnly = true)
+    public List<WindListResponseDto> list() {
+        return windRepository.findAllDesc().stream()
+                .map(WindListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
