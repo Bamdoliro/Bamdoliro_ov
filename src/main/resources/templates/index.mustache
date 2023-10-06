@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>바람 등록</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+    <form style="margin: 150px">
+        <div class="mb-3">
+            <div style="display: flex; justify-content: space-between">
+                <label for="wind" class="form-label" style="font-size: 40px">바람 등록 💨💨💨</label>
+                <div><a href="/list" role="button" class="btn btn-info">바람으로 이동</a></div>
+            </div>
+            <input type="text" class="form-control" id="wind" placeholder="바람에 적을 내용을 입력해주세요">
+        </div>
+        <div style="display: flex; justify-content: space-between">
+            <div class="form-text" style="color: darkgray; margin-left: 10px">바람은 최대 35글자 이내만 작성이 가능합니다.</div>
+            <button type="button" class="btn btn-primary" id="btn-save" style="margin-right: 10px">등록</button>
+        </div>
+    </form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script src="/js/app/index.js"></script>
+</body>
+</html>
