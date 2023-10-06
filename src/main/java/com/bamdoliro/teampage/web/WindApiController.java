@@ -32,4 +32,9 @@ public class WindApiController {
     public List<WindListResponseDto> list() {
         return windService.list();
     }
+
+    @GetMapping("/randomList")
+    public List<WindListResponseDto> randomList() {
+        return windService.randomList();
+    }
 }
