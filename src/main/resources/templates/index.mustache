@@ -7,17 +7,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
-<form style="margin: 150px">
-    <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label" style="font-size: 40px">바람 등록💨💨💨</label>
-        <input type="text" class="form-control" placeholder="바람에 적을 내용을 입력해주세요">
-        <div class="form-text" style="text-align: right; color: darkgray">바람은 최대 35글자 이내만 작성이 가능합니다.</div>
-    </div>
-    <button type="submit" class="btn btn-primary" style="float: right">등록</button>
-</form>
+
+    <form style="margin: 150px">
+        <div class="mb-3">
+            <label for="wind" class="form-label" style="font-size: 40px"> 바람 등록💨💨💨 </label>
+            <input type="text" class="form-control" id="wind" placeholder="바람에 적을 내용을 입력해주세요">
+        </div>
+        <div style="display: flex; justify-content: space-between">
+            <div class="form-text" style="color: darkgray; margin-left: 20px">바람은 최대 35글자 이내만 작성이 가능합니다.</div>
+            <button type="button" class="btn btn-primary" id="btn-save" style="margin-right: 20px">등록</button>
+        </div>
+    </form>
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
 <script src="/js/app/index.js"></script>
 </body>

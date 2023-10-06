@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @RestController
@@ -19,13 +21,18 @@ public class WindApiController {
     private final WindService windService;
 
     @PostMapping("/save")
-    public ResponseEntity<String> save(@RequestBody WindSaveRequestDto requestDto) {
+    public ResponseEntity<Map<String, String>> save(@RequestBody WindSaveRequestDto requestDto) {
+        Map<String, String> response = new HashMap<>();
         if (requestDto.getWind().length() <= 35) {
             windService.save(requestDto);
-            return ResponseEntity.ok("바람이 등록되었습니다.");
+            String successMessage = "바람이 등록되었습니다.";
+            response.put("message", successMessage);
+            return ResponseEntity.ok().body(response);
+        } else {
+            String failMessage = "35글자수 제한을 넘었습니다.";
+            response.put("message", failMessage);
+            return ResponseEntity.badRequest().body(response);
         }
-        else
-            return ResponseEntity.badRequest().body("35글자수 제한을 넘었습니다.");
     }
 
     @GetMapping("/list")
