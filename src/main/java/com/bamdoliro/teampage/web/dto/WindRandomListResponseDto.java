@@ -4,18 +4,15 @@ import com.bamdoliro.teampage.domain.wind.Wind;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
-
 @Getter
 @NoArgsConstructor
-public class WindListResponseDto {
+public class WindRandomListResponseDto {
     private Long id;
     private String wind;
-    private LocalDateTime createDate;
 
-    public WindListResponseDto(Wind wind) {
+    public WindRandomListResponseDto(Wind wind) {
         this.id = wind.getId();
         this.wind = wind.getWind();
-        this.createDate = wind.getCreateDate();
     }
 }
+

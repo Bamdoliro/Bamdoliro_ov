@@ -4,6 +4,12 @@ var main = {
         $('#btn-save').on('click', function () {
             _this.save();
         });
+        $('#wind').on('keydown', function (event) {
+            if (event.keyCode === 13) { // Check for Enter key (key code 13)
+                event.preventDefault(); // Prevent the default form submission
+                _this.save(); // Call the save function
+            }
+        });
     },
     save : function () {
         var data = {

@@ -3,6 +3,7 @@ package com.bamdoliro.teampage.web;
 import com.bamdoliro.teampage.domain.wind.Wind;
 import com.bamdoliro.teampage.service.WindService;
 import com.bamdoliro.teampage.web.dto.WindListResponseDto;
+import com.bamdoliro.teampage.web.dto.WindRandomListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -35,13 +36,8 @@ public class WindApiController {
         }
     }
 
-    @GetMapping("/list")
-    public List<WindListResponseDto> list() {
-        return windService.list();
-    }
-
     @GetMapping("/randomList")
-    public List<WindListResponseDto> randomList() {
+    public List<WindRandomListResponseDto> randomList() {
         return windService.randomList();
     }
 }

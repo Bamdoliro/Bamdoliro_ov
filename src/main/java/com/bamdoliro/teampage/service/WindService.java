@@ -2,6 +2,7 @@ package com.bamdoliro.teampage.service;
 
 import com.bamdoliro.teampage.domain.wind.WindRepository;
 import com.bamdoliro.teampage.web.dto.WindListResponseDto;
+import com.bamdoliro.teampage.web.dto.WindRandomListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,9 +31,9 @@ public class WindService {
     }
 
     @Transactional(readOnly = true)
-    public List<WindListResponseDto> randomList() {
-        List<WindListResponseDto> list = windRepository.findAllDesc().stream()
-                .map(WindListResponseDto::new)
+    public List<WindRandomListResponseDto> randomList() {
+        List<WindRandomListResponseDto> list = windRepository.findAllDesc().stream()
+                .map(WindRandomListResponseDto::new)
                 .collect(Collectors.toList());
 
         Collections.shuffle(list, new Random());
