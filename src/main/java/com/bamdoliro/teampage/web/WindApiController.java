@@ -40,7 +40,7 @@ public class WindApiController {
 
         if (requestDto.getWind().length() <= 35) {
             windService.save(requestDto);
-            message = "바람이 등록되었습니다.";
+            message = "\"" + requestDto.getWind() + "\"" + "이 등록되었습니다.";
             response.put("message", message);
             return ResponseEntity.ok().body(response);
         }
