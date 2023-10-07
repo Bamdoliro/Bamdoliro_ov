@@ -24,8 +24,15 @@ public class WindService {
     }
 
     @Transactional(readOnly = true)
-    public List<WindListResponseDto> list() {
+    public List<WindListResponseDto> descList() {
         return windRepository.findAllDesc().stream()
+                .map(WindListResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<WindListResponseDto> ascList() {
+        return windRepository.findAllAsc().stream()
                 .map(WindListResponseDto::new)
                 .collect(Collectors.toList());
     }
