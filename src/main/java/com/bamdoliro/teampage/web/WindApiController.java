@@ -24,16 +24,29 @@ public class WindApiController {
     @PostMapping("/save")
     public ResponseEntity<Map<String, String>> save(@RequestBody WindSaveRequestDto requestDto) {
         Map<String, String> response = new HashMap<>();
-        if (requestDto.getWind().length() <= 35) {
-            windService.save(requestDto);
-            String successMessage = "바람이 등록되었습니다.";
-            response.put("message", successMessage);
-            return ResponseEntity.ok().body(response);
-        } else {
-            String failMessage = "35글자수 제한을 넘었습니다.";
-            response.put("message", failMessage);
+        String message = "server error";
+
+        if (requestDto.getWind().length() == 0) {
+            message = "공백을 입력할 수 없습니다.";
+            response.put("message", message);
             return ResponseEntity.badRequest().body(response);
         }
+
+        if (requestDto.getWind().length() > 35) {
+            message = "35글자수 제한을 넘었습니다.";
+            response.put("message", message);
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        if (requestDto.getWind().length() <= 35) {
+            windService.save(requestDto);
+            message = "바람이 등록되었습니다.";
+            response.put("message", message);
+            return ResponseEntity.ok().body(response);
+        }
+
+        response.put("message", message);
+        return ResponseEntity.badRequest().body(response);
     }
 
     @GetMapping("/randomList")
