@@ -1,16 +1,15 @@
 package com.bamdoliro.teampage.web;
 
 import com.bamdoliro.teampage.domain.wind.Wind;
+import com.bamdoliro.teampage.service.GithubService;
 import com.bamdoliro.teampage.service.WindService;
+import com.bamdoliro.teampage.web.dto.GithubListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindRandomListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +19,7 @@ import java.util.Map;
 @RestController
 public class WindApiController {
     private final WindService windService;
+    private final GithubService githubService;
 
     @PostMapping("/save")
     public ResponseEntity<Map<String, String>> save(@RequestBody WindSaveRequestDto requestDto) {
@@ -52,5 +52,10 @@ public class WindApiController {
     @GetMapping("/randomList")
     public List<WindRandomListResponseDto> randomList() {
         return windService.randomList();
+    }
+
+    @GetMapping("/github")
+    public List<GithubListResponseDto> membersList(@RequestParam Integer generation, @RequestParam String job) {
+        return githubService.membersList(generation, job);
     }
 }

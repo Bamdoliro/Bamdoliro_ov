@@ -16,3 +16,6 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+
+  github:
+    token: ${GITHUB_TOKEN}
