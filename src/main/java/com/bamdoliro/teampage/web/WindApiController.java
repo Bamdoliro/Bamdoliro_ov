@@ -55,7 +55,13 @@ public class WindApiController {
     }
 
     @GetMapping("/github")
-    public List<GithubListResponseDto> membersList(@RequestParam Integer generation, @RequestParam String job) {
-        return githubService.membersList(generation, job);
+    public List<GithubListResponseDto> membersList(@RequestParam(required = false) Integer generation, @RequestParam(required = false) String job) {
+        if (generation != null && job != null) {
+            return githubService.members(generation, job);
+        } else if (generation != null) {
+            return githubService.generation(generation);
+        } else {
+            throw new IllegalArgumentException();
+        }
     }
 }

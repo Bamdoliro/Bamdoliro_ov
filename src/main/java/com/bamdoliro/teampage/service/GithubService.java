@@ -18,8 +18,18 @@ public class GithubService {
     @Value("${spring.github.token}")
     private String token;
 
-    public List<GithubListResponseDto> membersList(Integer generation, String job) {
-        String responseBody = getMembers( job + "-" + generation);
+    public List<GithubListResponseDto> members(Integer generation, String job) {
+        String team = job + "-" + generation;
+        return membersList(generation, team);
+    }
+
+    public List<GithubListResponseDto> generation(Integer generation) {
+        String team = generation.toString();
+        return membersList(generation, team);
+    }
+
+    public List<GithubListResponseDto> membersList(Integer generation, String team) {
+        String responseBody = getMembers( team);
         JSONArray jsonArray = new JSONArray(responseBody);
 
         List<GithubListResponseDto> githubList = new ArrayList<>();
