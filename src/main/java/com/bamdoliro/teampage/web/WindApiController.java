@@ -19,7 +19,6 @@ import java.util.Map;
 @RestController
 public class WindApiController {
     private final WindService windService;
-    private final GithubService githubService;
 
     @PostMapping("/save")
     public ResponseEntity<Map<String, String>> save(@RequestBody WindSaveRequestDto requestDto) {
@@ -52,16 +51,5 @@ public class WindApiController {
     @GetMapping("/randomList")
     public List<WindRandomListResponseDto> randomList() {
         return windService.randomList();
-    }
-
-    @GetMapping("/github")
-    public List<GithubListResponseDto> membersList(@RequestParam(required = false) Integer generation, @RequestParam(required = false) String job) {
-        if (generation != null && job != null) {
-            return githubService.members(generation, job);
-        } else if (generation != null) {
-            return githubService.generation(generation);
-        } else {
-            throw new IllegalArgumentException();
-        }
     }
 }
