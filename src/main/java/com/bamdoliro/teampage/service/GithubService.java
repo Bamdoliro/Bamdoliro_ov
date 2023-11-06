@@ -1,6 +1,8 @@
 package com.bamdoliro.teampage.service;
 
 import com.bamdoliro.teampage.web.dto.GithubListResponseDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,16 +22,16 @@ public class GithubService {
 
     public List<GithubListResponseDto> members(Integer generation, String job) {
         String team = job + "-" + generation;
-        return membersList(generation, team);
+        return membersList(team);
     }
 
     public List<GithubListResponseDto> generation(Integer generation) {
         String team = generation.toString();
-        return membersList(generation, team);
+        return membersList(team);
     }
 
-    public List<GithubListResponseDto> membersList(Integer generation, String team) {
-        String responseBody = getMembers( team);
+    public List<GithubListResponseDto> membersList(String team) {
+        String responseBody = getMembers(team);
         JSONArray jsonArray = new JSONArray(responseBody);
 
         List<GithubListResponseDto> githubList = new ArrayList<>();
@@ -37,16 +39,25 @@ public class GithubService {
         for (Object obj : jsonArray) {
             JSONObject jsonObject = (JSONObject) obj;
             String id = (String) jsonObject.get("login");
-            String profile_img = (String) jsonObject.get("avatar_url");
 
-            GithubListResponseDto dto = new GithubListResponseDto();
-            dto.setId(id);
-            dto.setProfile_img(profile_img);
-            dto.setGeneration(generation);
-
-            githubList.add(dto);
+            githubList.add(getUser(id));
         }
         return githubList;
+    }
+
+    public GithubListResponseDto getUser(String id)  {
+        String apiUrl = "https://api.github.com/users/" + id;
+
+        RestTemplate restTemplate = new RestTemplate();
+        String response = restTemplate.getForObject(apiUrl, String.class);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            GithubListResponseDto gitHubUser = objectMapper.readValue(response, GithubListResponseDto.class);
+            return gitHubUser;
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException();
+        }
     }
 
     public String getMembers(String team) {
