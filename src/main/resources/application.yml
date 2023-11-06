@@ -19,3 +19,6 @@ spring:
 
   github:
     token: ${GITHUB_TOKEN}
+
+  jackson:
+    time-zone: UTC

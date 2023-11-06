@@ -10,10 +10,6 @@ import java.util.TimeZone;
 @EnableJpaAuditing
 @SpringBootApplication
 public class TeamPageApplication {
-    @PostConstruct
-    public void started() {
-        TimeZone.setDefault(TimeZone.getTimeZone("UTC"));
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(TeamPageApplication.class, args);
