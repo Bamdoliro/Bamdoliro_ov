@@ -49,18 +49,6 @@ public class WindApiController {
         return ResponseEntity.badRequest().body(response);
     }
 
-    @GetMapping("/descList")
-    public String descList(Model model) {
-        model.addAttribute("wind", windService.descList());
-        return "descList";
-    }
-
-    @GetMapping("/ascList")
-    public String ascList(Model model) {
-        model.addAttribute("wind", windService.ascList());
-        return "ascList";
-    }
-
     @GetMapping("/randomList")
     public List<WindRandomListResponseDto> randomList() {
         return windService.randomList();

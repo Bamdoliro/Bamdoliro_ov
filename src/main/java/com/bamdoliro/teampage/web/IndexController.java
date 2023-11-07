@@ -19,4 +19,16 @@ public class IndexController {
     public String index() {
         return "index";
     }
+
+    @GetMapping("/descList")
+    public String descList(Model model) {
+        model.addAttribute("wind", windService.descList());
+        return "descList";
+    }
+
+    @GetMapping("/ascList")
+    public String ascList(Model model) {
+        model.addAttribute("wind", windService.ascList());
+        return "ascList";
+    }
 }
