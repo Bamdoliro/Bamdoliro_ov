@@ -9,6 +9,7 @@ import com.bamdoliro.teampage.web.dto.WindRandomListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -46,6 +47,18 @@ public class WindApiController {
 
         response.put("message", message);
         return ResponseEntity.badRequest().body(response);
+    }
+
+    @GetMapping("/descList")
+    public String descList(Model model) {
+        model.addAttribute("wind", windService.descList());
+        return "descList";
+    }
+
+    @GetMapping("/ascList")
+    public String ascList(Model model) {
+        model.addAttribute("wind", windService.ascList());
+        return "ascList";
     }
 
     @GetMapping("/randomList")
