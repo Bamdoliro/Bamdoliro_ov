@@ -21,7 +21,7 @@ public class GithubApiController {
         } else if (generation != null) {
             return githubService.generation(generation);
         } else {
-            throw new IllegalArgumentException();
+            return githubService.allMembers();
         }
     }
 }

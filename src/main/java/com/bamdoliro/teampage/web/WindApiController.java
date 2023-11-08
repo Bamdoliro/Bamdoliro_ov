@@ -9,6 +9,7 @@ import com.bamdoliro.teampage.web.dto.WindRandomListResponseDto;
 import com.bamdoliro.teampage.web.dto.WindSaveRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
