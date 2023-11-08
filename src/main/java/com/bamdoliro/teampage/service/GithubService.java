@@ -30,6 +30,10 @@ public class GithubService {
         return membersList(team);
     }
 
+    public List<GithubListResponseDto> allMembers() {
+        return membersList("Bamdoliro");
+    }
+
     public List<GithubListResponseDto> membersList(String team) {
         String responseBody = getMembers(team);
         JSONArray jsonArray = new JSONArray(responseBody);
