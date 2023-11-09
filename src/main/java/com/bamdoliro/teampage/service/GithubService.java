@@ -70,6 +70,7 @@ public class GithubService {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Accept", "application/vnd.github+json");
         headers.add("Authorization", "Bearer " + token);
+        headers.add("User-Agent", "BamdoliroTeamPage/1.0");
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), String.class);
