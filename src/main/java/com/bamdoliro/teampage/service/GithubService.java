@@ -51,13 +51,16 @@ public class GithubService {
 
     public GithubListResponseDto getUser(String id)  {
         String apiUrl = "https://api.github.com/users/" + id;
+        HttpHeaders headers = new HttpHeaders();
+
+        headers.set("Authorization", "Bearer " + token);
 
         RestTemplate restTemplate = new RestTemplate();
-        String response = restTemplate.getForObject(apiUrl, String.class);
+        ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), String.class);
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            GithubListResponseDto gitHubUser = objectMapper.readValue(response, GithubListResponseDto.class);
+            GithubListResponseDto gitHubUser = objectMapper.readValue(response.getBody(), GithubListResponseDto.class);
             return gitHubUser;
         } catch (JsonProcessingException e) {
             throw new IllegalArgumentException();
@@ -68,12 +71,21 @@ public class GithubService {
         String apiUrl = String.format("https://api.github.com/orgs/Bamdoliro/teams/%s/members", team);
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Accept", "application/vnd.github+json");
-        headers.add("Authorization", "Bearer " + token);
-        headers.add("User-Agent", "BamdoliroTeamPage/1.0");
+        headers.set("Accept", "application/vnd.github+json");
+        headers.set("Authorization", "Bearer " + token);
+        headers.set("User-Agent", "BamdoliroTeamPage/1.0");
+        headers.set("X-GitHub-Api-Version", "2022-11-28");
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
+        List<String> rateLimitRemaining = response.getHeaders().get("X-RateLimit-Remaining");
+        if (rateLimitRemaining != null && !rateLimitRemaining.isEmpty()) {
+            String remainingRequests = rateLimitRemaining.get(0);
+            System.out.println("남은 요청 가능 횟수: " + remainingRequests);
+        } else {
+            System.out.println("X-RateLimit-Remaining 헤더가 존재하지 않습니다.");
+        }
 
         if (response.getStatusCode() == HttpStatus.OK) {
             String responseBody = response.getBody();

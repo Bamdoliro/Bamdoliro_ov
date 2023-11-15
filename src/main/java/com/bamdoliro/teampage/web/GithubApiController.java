@@ -16,7 +16,6 @@ public class GithubApiController {
 
     @GetMapping("/github")
     public List<GithubListResponseDto> membersList(@RequestParam(required = false) Integer generation, @RequestParam(required = false) String job) {
-        System.out.println("요청이 들어옴");
         if (generation != null && job != null) {
             return githubService.members(generation, job);
         } else if (generation != null) {
