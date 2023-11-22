@@ -11,10 +11,6 @@ import javax.persistence.*;
 @Entity
 public class Position {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
     private String position;
 
     @Builder
