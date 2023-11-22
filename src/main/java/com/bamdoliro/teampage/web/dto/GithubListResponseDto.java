@@ -10,7 +10,8 @@ import lombok.Setter;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
 public class GithubListResponseDto {
-    private String login;
+    private String githubId;
     private String name;
-    private String avatar_url;
+    private Long generation;
+    private String position;
 }

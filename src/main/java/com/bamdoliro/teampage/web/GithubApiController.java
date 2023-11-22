@@ -15,13 +15,7 @@ public class GithubApiController {
     private final GithubService githubService;
 
     @GetMapping("/github")
-    public List<GithubListResponseDto> membersList(@RequestParam(required = false) Integer generation, @RequestParam(required = false) String job) {
-        if (generation != null && job != null) {
-            return githubService.members(generation, job);
-        } else if (generation != null) {
-            return githubService.generation(generation);
-        } else {
-            return githubService.allMembers();
-        }
+    public void membersList() {
+        githubService.batchSave();
     }
 }
