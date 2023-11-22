@@ -4,7 +4,7 @@ import com.bamdoliro.teampage.domain.member.MemberRepository;
 import com.bamdoliro.teampage.domain.position.Position;
 import com.bamdoliro.teampage.domain.position.PositionRepository;
 import com.bamdoliro.teampage.web.dto.MemberSaveRequestDto;
-import com.bamdoliro.teampage.web.dto.PositionListDto;
+import com.bamdoliro.teampage.web.dto.PositionSaveDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +32,9 @@ public class GithubService {
 
     public List<MemberSaveRequestDto> membersList(int generation, String position) {
         String responseBody = getMembers(position + "-" + generation);
+        if (responseBody == null) {
+            return null;
+        }
         JSONArray jsonArray = new JSONArray(responseBody);
 
         List<MemberSaveRequestDto> githubList = new ArrayList<>();
@@ -43,7 +46,7 @@ public class GithubService {
             MemberSaveRequestDto member = getUser(id);
             member.setGeneration(new Long(generation));
             member.setPosition(new Position().builder()
-                    .position(position)
+                    .position(position.replaceAll("-", " "))
                     .build());
 
             githubList.add(member);
@@ -79,29 +82,37 @@ public class GithubService {
         headers.set("X-GitHub-Api-Version", "2022-11-28");
 
         RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), String.class);
 
-        if (response.getStatusCode() == HttpStatus.OK) {
-            String responseBody = response.getBody();
-            return responseBody;
-        } else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
-            throw new RuntimeException("Member를 찾을 수 없음");
-        } else {
-            throw new RuntimeException("알 수 없는 에러 발생");
+        try {
+            ResponseEntity<String> response = restTemplate.exchange(apiUrl, HttpMethod.GET, new HttpEntity<>(headers), String.class);
+
+            if (response.getStatusCode() == HttpStatus.OK) {
+                String responseBody = response.getBody();
+                return responseBody;
+            } else if (response.getStatusCode() == HttpStatus.NOT_FOUND) {
+                throw new RuntimeException("Member를 찾을 수 없음");
+            } else {
+                throw new RuntimeException("알 수 없는 에러 발생");
+            }
+        } catch (Exception e) {
+            return null;
         }
     }
 
     @Transactional
     public void batchSave() {
         for(int i = 1; i < getGeneration() + 1; i++) {
-            List<PositionListDto> positions = positionRepository.findAll().stream()
-                    .map(PositionListDto::new)
+            List<PositionSaveDto> positions = positionRepository.findAll().stream()
+                    .map(PositionSaveDto::new)
                     .collect(Collectors.toList());
-            for(PositionListDto position : positions) {
+            for(PositionSaveDto position : positions) {
+                position.setPosition(position.getPosition().replaceAll("\\s", "-"));
                 List<MemberSaveRequestDto> members = membersList(i, position.getPosition());
-                for(MemberSaveRequestDto member : members) {
-                    memberRepository.save(member.toEntity());
-                    System.out.println(i + "기수 " + position.getPosition() + " " + member.getLogin() + "저장 완료");
+                if (members != null) {
+                    for(MemberSaveRequestDto member : members) {
+                        memberRepository.save(member.toEntity());
+                        System.out.println(i + "기수 " + position.getPosition() + " " + member.getLogin() + "저장 완료");
+                    }
                 }
             }
         }

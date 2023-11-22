@@ -1,7 +1,7 @@
 package com.bamdoliro.teampage.service;
 
 import com.bamdoliro.teampage.domain.position.PositionRepository;
-import com.bamdoliro.teampage.web.dto.PositionListDto;
+import com.bamdoliro.teampage.web.dto.PositionSaveDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,14 +15,14 @@ public class PositionService {
     private final PositionRepository positionRepository;
 
     @Transactional
-    public void save(PositionListDto position) {
+    public void save(PositionSaveDto position) {
         positionRepository.save(position.toEntity());
     }
 
     @Transactional(readOnly = true)
-    public List<PositionListDto> positionList() {
+    public List<PositionSaveDto> positionList() {
         return positionRepository.findAll().stream()
-                .map(PositionListDto::new)
+                .map(PositionSaveDto::new)
                 .collect(Collectors.toList());
     }
 }

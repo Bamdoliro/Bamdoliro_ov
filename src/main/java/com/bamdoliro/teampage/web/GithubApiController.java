@@ -1,20 +1,18 @@
 package com.bamdoliro.teampage.web;
 
 import com.bamdoliro.teampage.service.GithubService;
-import com.bamdoliro.teampage.web.dto.GithubListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/github")
 public class GithubApiController {
     private final GithubService githubService;
 
-    @GetMapping("/github")
+    @GetMapping("/update")
     public void membersList() {
         githubService.batchSave();
     }

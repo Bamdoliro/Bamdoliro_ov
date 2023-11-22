@@ -1,21 +1,22 @@
 package com.bamdoliro.teampage.web.dto;
 
-import com.bamdoliro.teampage.domain.position.Position;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class PositionListDto {
-    String position;
+    private String position;
+    private List<Integer> generation;
 
-    public PositionListDto(Position position) {
-        this.position = position.getPosition();
-    }
-
-    public Position toEntity() {
-        return Position.builder()
-                .position(position)
-                .build();
+    @Builder
+    public PositionListDto(String position, List<Integer> generation) {
+        this.position = position;
+        this.generation = generation;
     }
 }
