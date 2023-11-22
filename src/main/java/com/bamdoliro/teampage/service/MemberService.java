@@ -5,6 +5,7 @@ import com.bamdoliro.teampage.web.dto.GithubListResponseDto;
 import com.bamdoliro.teampage.web.dto.PositionListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -36,6 +37,7 @@ public class MemberService {
         return positionList;
     }
 
+    @Transactional(readOnly = true)
     public List<GithubListResponseDto> getMemberList() {
         return memberRepository.findAllAsc().stream()
                 .map(GithubListResponseDto::new)
