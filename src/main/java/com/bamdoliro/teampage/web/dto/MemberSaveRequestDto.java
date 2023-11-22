@@ -1,6 +1,7 @@
 package com.bamdoliro.teampage.web.dto;
 
 import com.bamdoliro.teampage.domain.member.Member;
+import com.bamdoliro.teampage.domain.position.Position;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,7 @@ public class MemberSaveRequestDto {
     private String name;
     private String avatar_url;
     private Long generation;
-    private String position;
+    private Position position;
 
     public Member toEntity() {
         return Member.builder()

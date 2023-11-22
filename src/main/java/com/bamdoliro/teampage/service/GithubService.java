@@ -1,8 +1,8 @@
 package com.bamdoliro.teampage.service;
 
 import com.bamdoliro.teampage.domain.member.MemberRepository;
+import com.bamdoliro.teampage.domain.position.Position;
 import com.bamdoliro.teampage.domain.position.PositionRepository;
-import com.bamdoliro.teampage.web.dto.GithubListResponseDto;
 import com.bamdoliro.teampage.web.dto.MemberSaveRequestDto;
 import com.bamdoliro.teampage.web.dto.PositionListDto;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -42,7 +42,9 @@ public class GithubService {
 
             MemberSaveRequestDto member = getUser(id);
             member.setGeneration(new Long(generation));
-            member.setPosition(position);
+            member.setPosition(new Position().builder()
+                    .position(position)
+                    .build());
 
             githubList.add(member);
         }

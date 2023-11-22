@@ -1,12 +1,12 @@
 package com.bamdoliro.teampage.domain.member;
 
+import com.bamdoliro.teampage.domain.position.Position;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Getter
 @NoArgsConstructor
@@ -25,11 +25,12 @@ public class Member {
     @Column
     private Long generation;
 
-    @Column
-    private String position;
+    @ManyToOne
+    @JoinColumn(name = "position")
+    private Position position;
 
     @Builder
-    public Member(String githubId, String name, String profile_url, Long generation, String position) {
+    public Member(String githubId, String name, String profile_url, Long generation, Position position) {
         this.githubId = githubId;
         this.name = name;
         this.profile_url = profile_url;

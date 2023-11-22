@@ -1,10 +1,8 @@
 package com.bamdoliro.teampage.service;
 
-import com.bamdoliro.teampage.domain.position.Position;
 import com.bamdoliro.teampage.domain.position.PositionRepository;
 import com.bamdoliro.teampage.web.dto.PositionListDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
