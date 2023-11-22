@@ -26,7 +26,7 @@ public class WindApiController {
         Map<String, String> response = new HashMap<>();
         String message = "server error";
 
-        if (requestDto.getWind().length() == 0) {
+        if (requestDto.getWind().isBlank()) {
             message = "공백을 입력할 수 없습니다.";
             response.put("message", message);
             return ResponseEntity.badRequest().body(response);
