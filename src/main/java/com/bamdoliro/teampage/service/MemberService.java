@@ -1,6 +1,7 @@
 package com.bamdoliro.teampage.service;
 
 import com.bamdoliro.teampage.domain.member.MemberRepository;
+import com.bamdoliro.teampage.web.dto.GithubListResponseDto;
 import com.bamdoliro.teampage.web.dto.PositionListDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,11 @@ public class MemberService {
             positionList.add(dto);
         }
         return positionList;
+    }
+
+    public List<GithubListResponseDto> getMemberList() {
+        return memberRepository.findAllAsc().stream()
+                .map(GithubListResponseDto::new)
+                .collect(Collectors.toList());
     }
 }
