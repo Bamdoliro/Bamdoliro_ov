@@ -26,18 +26,16 @@ public class WindApiController {
         Map<String, String> response = new HashMap<>();
         String message = "server error";
 
-        if (requestDto.getWind().length() == 0) {
+        if (requestDto.getWind().isBlank()) {
             message = "공백을 입력할 수 없습니다.";
             response.put("message", message);
             return ResponseEntity.badRequest().body(response);
         }
-
         if (requestDto.getWind().length() > 35) {
             message = "35글자수 제한을 넘었습니다.";
             response.put("message", message);
             return ResponseEntity.badRequest().body(response);
         }
-
         if (requestDto.getWind().length() <= 35) {
             windService.save(requestDto);
             message = "\"" + requestDto.getWind() + "\"" + "이 등록되었습니다.";
