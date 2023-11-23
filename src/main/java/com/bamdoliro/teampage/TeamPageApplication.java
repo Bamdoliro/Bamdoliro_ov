@@ -12,6 +12,10 @@ import java.util.TimeZone;
 @EnableScheduling
 @SpringBootApplication
 public class TeamPageApplication {
+    @PostConstruct
+    public void start() {
+        TimeZone.setDefault(TimeZone.getTimeZone("Asia/Seoul"));
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(TeamPageApplication.class, args);
