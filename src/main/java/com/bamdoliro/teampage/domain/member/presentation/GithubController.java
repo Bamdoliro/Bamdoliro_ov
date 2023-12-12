@@ -16,7 +16,8 @@ public class GithubController {
 
     @GetMapping("/update")
     @Scheduled(cron = "0 0 12 * * ?")
-    public void membersList() {
+    public String membersList() {
         githubService.batchSave();
+        return "success";
     }
 }
