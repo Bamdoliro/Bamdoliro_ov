@@ -32,6 +32,7 @@ public class MemberSaveService {
 
     @Transactional
     public void batchSave() {
+        memberRepository.cleanTable();
         for(int i = 1; i < getGeneration() + 1; i++) {
             List<PositionsSaveRequestDto> positions = positionRepository.findAll().stream()
                     .map(PositionsSaveRequestDto::new)
