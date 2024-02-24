@@ -9,7 +9,7 @@ public class corsConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000", "https://bamdoliro.com", "https://teampage.bamdoliro.com")
+                .allowedOrigins("http://localhost:3000", "https://bamdoliro.com", "https://teampage.bamdoliro.com", "https://teampage-gamma.vercel.app", "http://bamdoliro.kro.kr", "https://bamdoliro.kro.kr")
                 .allowedMethods("*");
     }
 }
